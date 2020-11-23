@@ -22,6 +22,14 @@ public class ThirdPersonMovement : MonoBehaviour {
     float turnSmoothVelocity;
     public float turnSmoothTime = 0.1f;
 
+    //Animation Models
+    public Animator KiwiAnim;
+
+    void Start()
+    {
+        KiwiAnim = GetComponentInChildren<Animator>();
+    }
+
     // Update is called once per frame
     void Update() {
         //jump
@@ -33,6 +41,8 @@ public class ThirdPersonMovement : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded) {
             velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+            //play jump
+            KiwiAnim.Play("KiwiJump");
         }
         //gravity
         velocity.y += gravity * Time.deltaTime;
@@ -49,6 +59,19 @@ public class ThirdPersonMovement : MonoBehaviour {
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
+
+            //play run
+            if (!KiwiAnim.GetCurrentAnimatorStateInfo(0).IsName("KiwiJump"))
+            {
+                KiwiAnim.Play("KiwiRun");
+            }
+
+        }
+
+        else
+        {
+            if(isGrounded)
+                KiwiAnim.Play("KiwiIdle");
         }
     }
 }

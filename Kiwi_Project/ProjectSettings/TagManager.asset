@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Fire
+  - FxTemporaire
+  - Water
+  - Egg
+  - Collectable
+  - V4group
+  - V2group
   layers:
   - Default
   - TransparentFX
